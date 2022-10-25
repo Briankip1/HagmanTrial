@@ -1,100 +1,64 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.WriteLine("Hello, World!");
 
-String[] fruits = { "apples", "kiwi", "avocado", "bananas" };
+// a pool words to be randomized, in form of an array
+using GameClass;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection.Metadata;
+using System.Reflection.PortableExecutable;
 
-Console.WriteLine("Enter the guess characters below...");
-Console.ReadLine();
+        //Console.WriteLine("Enter the guess characters below...");
+        //Console.ReadLine();
+
+GameOne Man = new GameOne();
+Man.lives = 6;
+Man.letters = new List<string>();
+Man.randomWords = new string[4];
+Man.checkingLetters();
+
+string[] randomWords = { "apples", "kiwi", "avocado", "bananas" };
+
 
 Random random = new Random();
 
-string chosenWord = fruits[random.Next(fruits.Length)];
-var lives = 6;
+string chosenWord = randomWords[random.Next(randomWords.Length)];
 
-List<string> letters = new List<string>();
 
-while(lives > 0)
-{
-    int charactersLeft = 0;
+        Console.Write("Type in a letter: ");
 
-    foreach (string word in fruits)
-    {
-        string letter = word.ToString();
-        if (letters.Contains(letter))
+
+        var key = Console.ReadKey().Key.ToString().ToLower();
+
+
+        if (letters.Contains(key))
         {
-            Console.Write(letter);
+
+            Console.WriteLine("You already entered this letter!");
+            continue;
         }
 
 
+        letters.Add(key);
+
+
+        if (!chosenWord.Contains(key))
+        {
+            lives--;
+
+
+            if (lives > 0)
+            {
+
+                Console.WriteLine($"The letter {key} is not in the word. You have {lives} {(lives == 1 ? "try" : "tries")} left.");
+            }
+        }
+
+if (lives > 0)
+        {
+
+            Console.WriteLine($"You won with {lives} {(lives == 1 ? "life" : "lives")} left!");
+        }
         else
         {
-            Console.Write("_");
-
-            charactersLeft++;
+            Console.WriteLine($"You lost! The word was {chosenWord}.");
         }
-    }
-   Console.WriteLine(string.Empty);
-
-
-    if (charactersLeft == 0)
-    {
-        break;
-    }
-
-    Console.Write("Type in a letter: ");
-
-
-    var key = Console.ReadKey().Key.ToString().ToLower();
-    Console.WriteLine(string.Empty);
-
-
-    if (letters.Contains(key))
-    {
-    
-        Console.WriteLine("You already entered this letter!");
-        continue;
-    }
-
-
-    letters.Add(key);
-
-
-    if (!chosenWord.Contains(key))
-    {
-        lives--;
-
-   
-        if (lives > 0)
-        {
-        
-            Console.WriteLine($"The letter {key} is not in the word. You have {lives} {(lives == 1 ? "try" : "tries")} left.");
-        }
-    }
-    }
-
-}
-    if (lives > 0)
-    {
-   
-        Console.WriteLine($"You won with {lives} {(lives == 1 ? "life" : "lives")} left!");
-    }
-    else
-    {
-        Console.WriteLine($"You lost! The word was {chosenWord}.");
-    }
-        }
-    }
-
-/*
-public string Playerguess()
-{
-    Console.WriteLine("Enter the guess character below: ");
-
-    string guessChar = Console.ReadLine();
-     if(chosenWordChar != guessChar)
-    {
-        Console.WriteLine("That is the correct character for the chosen word");
-    }
-    
-}
-*/
