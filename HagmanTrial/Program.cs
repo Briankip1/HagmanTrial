@@ -6,59 +6,36 @@ using GameClass;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
+using System.Collections;
 
-        //Console.WriteLine("Enter the guess characters below...");
-        //Console.ReadLine();
+//Console.WriteLine("Enter the guess characters below...");
+//Console.ReadLine();
 
-GameOne Man = new GameOne();
-Man.lives = 6;
-Man.letters = new List<string>();
-Man.randomWords = new string[4];
-Man.checkingLetters();
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Input a letter here ...");
 
-string[] randomWords = { "apples", "kiwi", "avocado", "bananas" };
+        GameOne Man = new GameOne(6);
 
+        Man.HandleGuess();
+    
+        Man.Randomize();
 
-Random random = new Random();
-
-string chosenWord = randomWords[random.Next(randomWords.Length)];
-
-
-        Console.Write("Type in a letter: ");
-
-
-        var key = Console.ReadKey().Key.ToString().ToLower();
+        Man.CheckingLetters();
+        
 
 
-        if (letters.Contains(key))
-        {
-
-            Console.WriteLine("You already entered this letter!");
-            continue;
-        }
 
 
-        letters.Add(key);
 
 
-        if (!chosenWord.Contains(key))
-        {
-            lives--;
+    
+       
+            
+      
 
-
-            if (lives > 0)
-            {
-
-                Console.WriteLine($"The letter {key} is not in the word. You have {lives} {(lives == 1 ? "try" : "tries")} left.");
-            }
-        }
-
-if (lives > 0)
-        {
-
-            Console.WriteLine($"You won with {lives} {(lives == 1 ? "life" : "lives")} left!");
-        }
-        else
-        {
-            Console.WriteLine($"You lost! The word was {chosenWord}.");
-        }
+              
+    }
+}

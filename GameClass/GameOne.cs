@@ -8,20 +8,51 @@ namespace GameClass
 {
     public class GameOne
     {
-        public int lives;
-        public List<string> letters;
-        public string[] randomWords;
 
-        public void checkingLetters()
-        {
-            while (lives != 0)
+
+
+        public int Lives;
+        public string ChosenWord = " ";
+        public List<string> Letters = new List<string>();
+
+        public List<string> RandomWords = new List<string>()
             {
-                int charactersLeft = lives;
+            "apples",
+            "kiwi",
+            "Avocado",
+            "Bananas" };
+    
 
-                foreach (string word in randomWords)
+        public GameOne(int lives)
+        {
+            this.Lives = lives;
+        }
+
+        //public GameOne(List<string> RandomWords)
+        //{
+        //    string word1;
+        //    string word2;
+        //    string word3;
+        //    string word4;
+        //}
+        public string Randomize()
+        {
+            Random random = new Random();
+
+            ChosenWord = RandomWords[random.Next(0, RandomWords.Count)];
+            return ChosenWord;
+        }
+
+        public void CheckingLetters()
+        {
+            while (Lives != 0)
+            {
+                int charactersLeft = 0;
+
+                foreach (string word in RandomWords)
                 {
                     string letter = word.ToString();
-                    if (letters.Contains(letter))
+                    if (Letters.Contains(letter))
                     {
                         Console.Write(letter);
                     }
@@ -38,14 +69,49 @@ namespace GameClass
                 {
                     break;
                 }
+            }
+        }
+
+        public void HandleGuess()
+        {
+
+            var key = Console.ReadKey().Key.ToString().ToLower();
 
 
+            if (Letters.Contains(key))
+            {
+
+                Console.WriteLine("You already entered this letter!");
             }
 
+
+            Letters.Add(key);
+
+
+            if (!ChosenWord.Contains(key))
+            {
+                Lives--;
+
+            }
+            
+            if (Lives > 0)
+            {
+
+                Console.WriteLine($"The letter {key} is not in the word. You have {Lives} {(Lives == 1 ? "try" : "tries")} left.");
+            }
+            
+
+            if (Lives > 0)
+            {
+
+                Console.WriteLine($"You won with {Lives} {(Lives == 1 ? "life" : "lives")} left!");
+            }
+            else
+            {
+                Console.WriteLine($"You lost! The word was {ChosenWord}.");
+            }
         }
     }
-
-
-
 }
-    
+
+
